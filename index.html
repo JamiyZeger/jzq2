@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西安地铁规划出题器</title>
+    <style>
+        body {
+            font-family: 'Google Sans', Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 40px;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .station-display {
+                font-size: 22px;
+                padding: 15px;
+                margin: 20px 0;
+            }
+            button {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+        h1 {
+            color: #4285F4;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .station-display {
+            font-size: 28px;
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: inline-block;
+            transition: opacity 0.1s;
+        }
+        
+        .station-animation {
+            animation: stationShuffle 1s ease-out;
+        }
+        
+        @keyframes stationShuffle {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            20% { opacity: 0; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            50% { opacity: 1; }
+            60% { opacity: 0; }
+            70% { opacity: 1; }
+            80% { opacity: 0; }
+            90% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+        #stationA {
+            color: #EA4335;
+        }
+        
+
+        #stationA {
+            color: #EA4335;
+            font-weight: bold;
+        }
+        #stationB {
+            color: #34A853;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: linear-gradient(to right, #4285F4, #34A853);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div>
+         <h1>地铁怎么走？</h1>
+         <div class="station-display">从<span id="stationA">A</span>到<span id="stationB">B</span>怎么走？</div>
+         <button onclick="animateStations()" style="padding: 12px 24px; font-size: 18px; background-color: #4285F4; color: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s; margin-top: 20px; display: block; margin-left: auto; margin-right: auto;">出题</button>
+     </div>
+    
+    <script>
+    const stations = ['北客站', '行政中心', '钟楼', '小寨', '大雁塔', '科技路', '劳动路', '通化门', '万寿路', '长乐坡'];
+    
+    function animateStation(elementId, finalStation) {
+        const element = document.getElementById(elementId);
+        element.classList.add('station-animation');
+        
+        let counter = 0;
+        const interval = setInterval(() => {
+            element.textContent = stations[Math.floor(Math.random() * stations.length)];
+            counter++;
+            if(counter > 10) {
+                clearInterval(interval);
+                element.textContent = finalStation;
+                element.classList.remove('station-animation');
+            }
+        }, 100);
+    }
+    
+    function animateStations() {
+        const stationA = stations[Math.floor(Math.random() * stations.length)];
+        const stationB = stations[Math.floor(Math.random() * stations.length)];
+        animateStation('stationA', stationA);
+        animateStation('stationB', stationB);
+    }
+   </script>
+ </body>
+ </html>
+</body>
+</html>
